@@ -1,0 +1,31 @@
+﻿<Window x:Class="MvvmProj.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MvvmProj"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel Margin="20">
+            <ComboBox ItemsSource="{Binding AllPrinters}"
+                 
+                      SelectedItem="{Binding SelectedPrinter,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Model" Height="50" Background="DeepSkyBlue"></ComboBox>
+            <StackPanel>
+                <TextBlock FontSize="26" FontWeight="ExtraBlack" Text="Model"></TextBlock>
+                <TextBlock Margin="10,0,0,0" FontSize="26" FontWeight="Medium" Text="{Binding SelectedPrinter.Model,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                <TextBlock FontSize="26" FontWeight="ExtraBlack" Text="Vendor"></TextBlock>
+                <TextBlock Margin="10,0,0,0" FontSize="26" FontWeight="Medium" Text="{Binding SelectedPrinter.Vendor,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                <TextBlock FontSize="26" FontWeight="ExtraBlack" Text="Color"></TextBlock>
+                <TextBlock Margin="10,0,0,0" FontSize="26" FontWeight="Medium" Text="{Binding SelectedPrinter.Color,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                <Button Command="{Binding EditCommand}" FontSize="26" FontWeight="DemiBold" Content="Edit Printer" ></Button>
+                <Button  FontSize="26" FontWeight="DemiBold" Content="Add UserControls" >
+                    <Button.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding AddUserControlsCommand}" CommandParameter="{Binding ElementName=myPanel}"  ></MouseBinding>
+                    </Button.InputBindings>
+                </Button>
+                <WrapPanel Name="myPanel" ></WrapPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
