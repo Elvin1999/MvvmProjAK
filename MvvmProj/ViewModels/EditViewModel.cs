@@ -42,7 +42,9 @@ namespace MvvmProj.ViewModels
 					Model = selectedPrinter.Model,
 					Vendor = selectedPrinter.Vendor,
 				};
-				FakeRepo.Printers.Add(AddedPrinter);
+                FakeRepo fakeRepo = new FakeRepo();
+				fakeRepo.Printers.Add(AddedPrinter);
+				fakeRepo.SaveChanges();
 
                 var window = o as EditWindow;
                 window.Close();

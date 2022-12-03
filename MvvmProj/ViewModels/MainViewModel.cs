@@ -23,6 +23,8 @@ namespace MvvmProj.ViewModels
             set { allPrinters = value;  OnPropertyChanged(); }
         }
 
+        public FakeRepo FakeRepo { get; set; }
+
         private Printer selectedItem;
 
         public Printer SelectedPrinter
@@ -36,7 +38,44 @@ namespace MvvmProj.ViewModels
 
         public MainViewModel()
         {
-            AllPrinters= new ObservableCollection<Printer>(FakeRepo.GetPrinters());
+            FakeRepo=new FakeRepo();
+
+            if (FakeRepo.Printers.Count() == 0)
+            {
+                FakeRepo.Printers.AddRange(new List<Printer>{new Printer
+                {
+                    Id = 1,
+                    Color = "Red",
+                    Model = "C-200",
+                    Vendor = "HP"
+                },
+                new Printer
+                {
+                    Id = 2,
+                    Color = "Green",
+                    Model = "Epsun",
+                    Vendor = "HP"
+                },
+                new Printer
+                {
+                    Id = 3,
+                    Color = "White",
+                    Model = "RR-200",
+                    Vendor = "Acer"
+                },
+                new Printer
+                {
+                    Id = 4,
+                    Color = "Black",
+                    Model = "S-600",
+                    Vendor = "Samsung"
+                }}
+                );
+                FakeRepo.SaveChanges();
+            }
+
+
+            AllPrinters = new ObservableCollection<Printer>(FakeRepo.Printers);
 
             EditCommand = new RelayCommand((o) =>
             {
@@ -47,7 +86,7 @@ namespace MvvmProj.ViewModels
                 window.DataContext = vm;
 
                 window.ShowDialog();
-                AllPrinters = new ObservableCollection<Printer>(FakeRepo.GetPrinters());
+                AllPrinters = new ObservableCollection<Printer>(FakeRepo.Printers);
             });
 
 
